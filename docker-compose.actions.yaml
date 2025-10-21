@@ -1,0 +1,33 @@
+name: floor-predictor-api
+
+services:
+  api:
+    container_name: floor_predictor_api
+    image: ${IMAGE}
+    restart: always
+    environment:
+      - CONFIG_PATH=/app/config.yaml
+    ports:
+      - ${APP_PORT_MAPPING:-5400:5400}
+      - ${PROMETHEUS_PORT_MAPPING:-9000:9000}
+    volumes:
+      - ${LOG_VOLUME:-/var/log/floor_predictor_api}:/app/logs
+      - ${REAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml:ro
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          memory: ${MEM_LIMIT:-8G}
+    memswap_limit: ${MEMSWAP_LIMIT:-8G}
+    healthcheck:
+      test: curl -f http://localhost:5400/health_check/ping
+      interval: 10s
+      timeout: 5s
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"

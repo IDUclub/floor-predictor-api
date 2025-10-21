@@ -1,0 +1,59 @@
+[project]
+name = "floor-predictor-api"
+version = "0.1.0"
+description = "This API provides methods to predict the number of floors for living buildings."
+authors = [
+    {name = "ruslan",email = "rus.babaef@yandex.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "floor-predictor @ git+https://github.com/IDUclub/floor-predictor.git",
+    "fastapi (>=0.119.0,<0.120.0)",
+    "uvicorn (>=0.37.0,<0.38.0)",
+    "pydantic (>=2.12.0,<3.0.0)",
+    "prometheus-client (>=0.23.1,<0.24.0)",
+    "pandas (>=2.3.3,<3.0.0)",
+    "geopandas (>=1.1.1,<2.0.0)",
+    "aiohttp (>=3.13.0,<4.0.0)",
+    "numpy (>=2.3.3,<3.0.0)",
+    "structlog (>=25.4.0,<26.0.0)",
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "shapely (>=2.1.2,<3.0.0)",
+    "geojson-pydantic (>=2.1.0,<3.0.0)",
+    "minio (>=7.2.18,<8.0.0)",
+]
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = {version = "^8.4.2", extras = ["asyncio,coverage"]}
+black = "^25.9.0"
+pylint = "^4.0.0"
+isort = "^7.0.0"
+pytest-mock = "^3.15.1"
+
+
+[tool.poetry.scripts]
+launch_app = "floor_predictor_api.__main__:main"
+
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 120
+split_on_trailing_comma = true
+profile = "black"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
