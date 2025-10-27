@@ -127,5 +127,4 @@ dmypy.json
 
 /logs
 
-*.conf
 config.yaml
