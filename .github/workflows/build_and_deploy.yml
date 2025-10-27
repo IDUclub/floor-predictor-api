@@ -49,4 +49,4 @@ jobs:
         run: echo "IMAGE=$IMAGE_NAME:$NOW" >> $GITHUB_ENV
         
       - name: run
-        run: docker compose -f docker-compose.actions.yml up -d
+        run: docker compose -f docker-compose.actions.yaml --env-file ./.env.production up -d

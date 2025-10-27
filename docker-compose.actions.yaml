@@ -12,10 +12,7 @@ services:
       - ${PROMETHEUS_PORT_MAPPING:-9000:9000}
     volumes:
       - ${LOG_VOLUME:-/var/log/floor_predictor_api}:/app/logs
-      - ${REAL_CONFIG_PATH:-./config.yaml}:/app/config.yaml:ro
-    depends_on:
-      migrator:
-        condition: service_completed_successfully
+      - ${REAL_CONFIG_PATH}:/app/config.yaml:ro
     deploy:
       resources:
         limits:
