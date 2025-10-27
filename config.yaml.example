@@ -1,0 +1,25 @@
+app:
+  host: 0.0.0.0
+  port: 5400
+  debug: true
+  name: floor_predictor_api
+logging:
+  level: INFO
+  files:
+  - filename: logs/info.log
+    level: INFO
+prometheus:
+  disable: false
+  port: 9000
+urban_api:
+  host: http://10.32.1.47:5300
+  ping_timeout_seconds: 2.0
+  operation_timeout_seconds: 120.0
+fileserver:
+  url: http://localhost:9000
+  bucket: floor-predictor
+  model_path: models/StoreyModelTrainer.joblib
+  access_key: ''
+  secret_key: ''
+  connect_timeout: 3
+  read_timeout: 30
