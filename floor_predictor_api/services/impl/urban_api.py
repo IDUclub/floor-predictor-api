@@ -146,7 +146,7 @@ class HTTPUrbanAPIClient(UrbanAPIClient):
 
     @_handle_exceptions
     async def get_scenario_living_buildings(self, scenario_id: int, token: str) -> gpd.GeoDataFrame:
-        type_id = await self.get_physical_object_type_id_by_name("жилое здание")
+        type_id = await self.get_physical_object_type_id_by_name("жилой дом")
 
         headers = {"Authorization": f"Bearer {token}"}
         params = {"physical_object_type_id": type_id}
