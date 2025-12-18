@@ -37,6 +37,8 @@ class UrbanFeatureParserImpl(UrbanFeatureParser):
 
         if df.empty:
             raise NoBuildingsFoundError()
+        if df[df["storey"].isna()].empty:
+            raise NoBuildingsFoundError()
 
         df = df[["building_id", "storey", "is_scenario_object", "is_living", "is_predicted", "geometry"]].copy()
 
