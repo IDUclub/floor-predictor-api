@@ -1,6 +1,6 @@
 [project]
 name = "floor-predictor-api"
-version = "0.1.2"
+version = "0.1.3"
 description = "This API provides methods to predict the number of floors for living buildings."
 authors = [
     {name = "ruslan",email = "rus.babaef@yandex.ru"}

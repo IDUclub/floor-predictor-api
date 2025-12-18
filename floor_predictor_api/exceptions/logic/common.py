@@ -13,3 +13,13 @@ class NoBuildingsFoundError(FloorPredictorApiError):
 
     def get_status_code(self) -> int:
         return status.HTTP_404_NOT_FOUND
+
+
+class NotEnoughBuildingsError(FloorPredictorApiError):
+    """Exception to raise when not enough buildings found in scenario project data."""
+
+    def __str__(self) -> str:
+        return "На территории этого проектного сценария найдено недостаточно жилых зданий (нужно минимум 5)."
+
+    def get_status_code(self) -> int:
+        return status.HTTP_400_BAD_REQUEST

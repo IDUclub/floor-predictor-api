@@ -8,7 +8,7 @@ from floor_predictior.osm_height_predictor.geo import (
     SpatialStatisticsComputer,
 )
 
-from floor_predictor_api.exceptions.logic.common import NoBuildingsFoundError
+from floor_predictor_api.exceptions.logic.common import NoBuildingsFoundError, NotEnoughBuildingsError
 from floor_predictor_api.services.data_parser import UrbanFeatureParser
 
 
@@ -32,11 +32,18 @@ class UrbanFeatureParserImpl(UrbanFeatureParser):
         df["is_predicted"] = df["storey"].notna().astype(int)
 
         # --- 2. Filter invalid geometries ---
-        valid_geom_mask = df.geometry.apply(lambda g: g is not None and g.geom_type in ("Polygon", "MultiPolygon"))
-        df = df[valid_geom_mask].reset_index(drop=True)
+        df["geometry"] = df.geometry.buffer(0)
+        df = df[
+            ~df.geometry.is_empty &
+            df.geometry.notna() &
+            df.geometry.is_valid &
+            df.geometry.geom_type.isin(["Polygon", "MultiPolygon"])
+            ].reset_index(drop=True)
 
         if df.empty:
             raise NoBuildingsFoundError()
+        if len(df) < 5:
+            raise NotEnoughBuildingsError()
         if df[df["storey"].isna()].empty:
             raise NoBuildingsFoundError()
 
