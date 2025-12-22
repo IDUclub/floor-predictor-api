@@ -29,7 +29,7 @@ class UrbanFeatureParserImpl(UrbanFeatureParser):
 
         df["is_scenario_object"] = df["is_scenario_physical_object"].astype(int)
         df["is_living"] = 1  # by default
-        df["is_predicted"] = df["storey"].notna().astype(int)
+        df["is_predicted"] = df["storey"].isna().astype(int)
 
         # --- 2. Filter invalid geometries ---
         df["geometry"] = df.geometry.buffer(0)
